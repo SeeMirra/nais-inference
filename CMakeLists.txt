@@ -61,6 +61,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 add_subdirectory(godot-cpp)
+set(LLAMA_BUILD_COMMON ON CACHE BOOL "Build common utils library" FORCE)
 add_subdirectory(llama.cpp EXCLUDE_FROM_ALL)
 
 set(src_files
