@@ -113,7 +113,7 @@ std::string LlavaRunner::remove_image_from_prompt(const std::string& prompt, con
 }
 
 
-struct llava_image_embed * LlavaRunner::load_image(llava_context * ctx_llava, gpt_params * params, const std::string & fname) {
+struct llava_image_embed * LlavaRunner::load_image(llava_context * ctx_llava, llama_context_params  * params, const std::string & fname) {
 
     // load and preprocess the image
     llava_image_embed * embed = NULL;
@@ -142,7 +142,7 @@ struct llava_image_embed * LlavaRunner::load_image(llava_context * ctx_llava, gp
 std::string LlavaRunner::process_prompt(
     struct llava_context * ctx_llava,
     struct llava_image_embed * image_embed,
-    gpt_params * params,
+    llama_context_params  * params,
     const std::string & prompt,
     std::function<void(std::string)> on_generate_text_updated
 ) {
@@ -215,11 +215,11 @@ std::string LlavaRunner::process_prompt(
     return response;
 }
 
-struct llama_model * LlavaRunner::llava_init(gpt_params * params) {
+struct llama_model * LlavaRunner::llava_init(llama_context_params  * params) {
     llama_backend_init();
     llama_numa_init(params->numa);
 
-    llama_model_params model_params = llama_model_params_from_gpt_params(*params);
+    llama_model_params model_params = llama_model_params_from_llama_context_params (*params);
 
     llama_model * model = llama_load_model_from_file(params->model.c_str(), model_params);
     if (model == NULL) {
@@ -229,7 +229,7 @@ struct llama_model * LlavaRunner::llava_init(gpt_params * params) {
     return model;
 }
 
-struct llava_context * LlavaRunner::llava_init_context(gpt_params * params, llama_model * model) {
+struct llava_context * LlavaRunner::llava_init_context(llama_context_params  * params, llama_model * model) {
     const char * clip_path = params->mmproj.c_str();
 
     auto prompt = params->prompt;
@@ -240,7 +240,7 @@ struct llava_context * LlavaRunner::llava_init_context(gpt_params * params, llam
     auto ctx_clip = clip_model_load(clip_path, /*verbosity=*/ 1);
 
 
-    llama_context_params ctx_params = llama_context_params_from_gpt_params(*params);
+    llama_context_params ctx_params = llama_context_params_from_llama_context_params (*params);
     ctx_params.n_ctx           = params->n_ctx < 2048 ? 2048 : params->n_ctx; // we need a longer context size to process image embeddings
 
     llama_context * ctx_llama = llama_new_context_with_model(model, ctx_params);
@@ -278,7 +278,7 @@ void LlavaRunner::llama_log_callback_logTee(ggml_log_level level, const char * t
 std::string LlavaRunner::llava_generate_text_base64(
     std::string prompt,
     std::string image_base64,
-    gpt_params params,
+    llama_context_params  params,
     std::function<void(std::string)> on_generate_text_updated,
     std::function<void(std::string)> on_generate_text_finished
 ) {
@@ -294,7 +294,7 @@ std::string LlavaRunner::llava_generate_text_base64(
 
     ggml_time_init();
 
-//    if (!gpt_params_parse(argc, argv, params)) {
+//    if (!llama_context_params _parse(argc, argv, params)) {
 //        show_additional_info(argc, argv);
 //        return 1;
 //    }
@@ -307,7 +307,7 @@ std::string LlavaRunner::llava_generate_text_base64(
 #endif // LOG_DISABLE_LOGS
 
     if (params.mmproj.empty() || (params.image.empty() && !prompt_contains_image(params.prompt))) {
-    //    gpt_params_print_usage(argc, argv, params);
+    //    llama_context_params _print_usage(argc, argv, params);
     //    show_additional_info(argc, argv);
         std::string msg = std::string(__func__) + ": error: no mmproj or image";
         glog(msg);

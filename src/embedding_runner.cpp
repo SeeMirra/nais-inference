@@ -59,7 +59,7 @@ void EmbeddingRunner::batch_decode(llama_context * ctx, llama_batch & batch, flo
 
 std::vector<float> EmbeddingRunner::compute_embedding(
     std::string prompt,
-    gpt_params params,
+    llama_context_params  params,
     std::function<void(std::vector<float>)> on_compute_finished
 ) {
     params.prompt = prompt;
@@ -85,7 +85,7 @@ std::vector<float> EmbeddingRunner::compute_embedding(
     llama_context * ctx;
 
     // load the model
-    std::tie(model, ctx) = llama_init_from_gpt_params(params);
+    std::tie(model, ctx) = llama_init_from_llama_context_params (params);
     if (model == NULL) {
         fprintf(stderr, "%s: error: unable to load model\n", __func__);
         std::string msg = std::string(__func__) + ": error: unable to load model";
@@ -111,7 +111,7 @@ std::vector<float> EmbeddingRunner::compute_embedding(
     // print system information
     {
         fprintf(stderr, "\n");
-        fprintf(stderr, "%s\n", gpt_params_get_system_info(params).c_str());
+        fprintf(stderr, "%s\n", llama_context_params _get_system_info(params).c_str());
     }
 
     // split the prompt into lines
@@ -225,7 +225,7 @@ float EmbeddingRunner::similarity_cos(std::vector<float> embd1, std::vector<floa
     return llama_embd_similarity_cos(embd1.data(), embd2.data(), embd1.size());
 }
 
-int EmbeddingRunner::get_n_embd(gpt_params params) {
+int EmbeddingRunner::get_n_embd(llama_context_params  params) {
     params.embedding = true;
     // For non-causal models, batch size must be equal to ubatch size
     params.n_ubatch = params.n_batch;
@@ -237,7 +237,7 @@ int EmbeddingRunner::get_n_embd(gpt_params params) {
     llama_context * ctx;
 
     // load the model
-    std::tie(model, ctx) = llama_init_from_gpt_params(params);
+    std::tie(model, ctx) = llama_init_from_llama_context_params (params);
     if (model == NULL) {
         std::string msg = std::string(__func__) + ": error: unable to load model";
         return -1;

@@ -21,7 +21,7 @@ int main(int argc, char ** argv) {
     std::string image_base64 = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAARklEQVR4nGLpPPSRgRSw2aaBJPVMJKkmA4xaMGrBqAWjFoxaQA3A+NnMjCQN72pkSVI/9INo1IJRC0YtGLVgRFgACAAA//8j+AbTk2+QtAAAAABJRU5ErkJggg==";
     std::cout << "Image base64: " << image_base64 << std::endl;
 
-    gpt_params params1 {gpt_params()};
+    llama_context_params  params1 {llama_context_params ()};
     params1.model = "../../../models/llava-phi-3-mini-int4.gguf";
     params1.mmproj = "../../../models/llava-phi-3-mini-mmproj-f16.gguf";
 

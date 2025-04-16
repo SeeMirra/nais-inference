@@ -132,7 +132,7 @@ void GDLlama::_bind_methods() {
 
 }
 
-GDLlama::GDLlama() : params {gpt_params()},
+GDLlama::GDLlama() : params {llama_context_params ()},
     reverse_prompt {""},
     llama_runner {new LlamaRunner(should_output_prompt)},
     should_output_prompt {true},

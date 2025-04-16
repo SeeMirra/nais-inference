@@ -53,7 +53,7 @@ void LlamaRunner::llama_log_callback_logTee(ggml_log_level level, const char * t
 }
 
 std::string LlamaRunner::llama_generate_text(
-    std::string prompt, gpt_params params,
+    std::string prompt, llama_context_params  params,
     std::function<void(std::string)> on_generate_text_updated,
     std::function<void()> on_input_wait_started,
     std::function<void(std::string)> on_generate_text_finished
@@ -135,9 +135,9 @@ std::string LlamaRunner::llama_generate_text(
 
     // load the model and apply lora adapter, if any
     LOG("%s: load the model and apply lora adapter, if any\n", __func__);
-    std::tie(model, ctx) = llama_init_from_gpt_params(params);
+    std::tie(model, ctx) = llama_init_from_llama_context_params (params);
     if (sparams.cfg_scale > 1.f) {
-        struct llama_context_params lparams = llama_context_params_from_gpt_params(params);
+        struct llama_context_params lparams = llama_context_params_from_llama_context_params (params);
         ctx_guidance = llama_new_context_with_model(model, lparams);
     }
 
@@ -161,7 +161,7 @@ std::string LlamaRunner::llama_generate_text(
     // print system information
     {
         LOG("\n");
-        LOG("%s\n", gpt_params_get_system_info(params).c_str());
+        LOG("%s\n", llama_context_params _get_system_info(params).c_str());
     }
 
     std::string path_session = params.path_prompt_cache;

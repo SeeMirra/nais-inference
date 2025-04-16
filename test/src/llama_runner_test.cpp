@@ -18,7 +18,7 @@ int main(int argc, char ** argv) {
     std::string prompt = "Tell me about vulkan: ";
     std::cout << "Prompt: " << prompt << std::endl;
 
-    gpt_params params1 {gpt_params()};
+    llama_context_params  params1 {llama_context_params ()};
     std::cout << "Model: " << params1.model << std::endl;
 
     std::string text1 = lr->llama_generate_text(prompt, params1, [](auto a) {}, []() {}, [](auto a){});
@@ -28,7 +28,7 @@ int main(int argc, char ** argv) {
         return 1;
     }
 
-    gpt_params params2 {gpt_params()};
+    llama_context_params  params2 {llama_context_params ()};
     params2.model = "../../../models/Meta-Llama-3-8B-Instruct.Q5_K_M.gguf";
     std::cout << "Model: " << params2.model << std::endl;
     params2.n_predict = 10;
