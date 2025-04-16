@@ -99,11 +99,11 @@ void GDEmbedding::_exit_tree() {
 }
 
 String GDEmbedding::get_model_path() const {
-    return string_std_to_gd(params.model);
+    return string_std_to_gd(model_path);
 }
 
 void GDEmbedding::set_model_path(const String p_model_path) {
-    params.model = string_gd_to_std(p_model_path.trim_prefix(String("res://")));
+    model_path = string_gd_to_std(p_model_path.trim_prefix(String("res://")));
 }
 
 int32_t GDEmbedding::get_n_threads() const {
@@ -115,27 +115,27 @@ void GDEmbedding::set_n_threads(const int32_t p_n_threads) {
 }
 
 int32_t GDEmbedding::get_n_gpu_layer() const {
-    return params.n_gpu_layers;
+    print("used to return params.n_gpu_layers");
 }
 
 void GDEmbedding::set_n_gpu_layer(const int32_t p_n_gpu_layers) {
-    params.n_gpu_layers = p_n_gpu_layers;
+    print("used to params.n_gpu_layers = p_n_gpu_layers");
 }
 
 int32_t GDEmbedding::get_main_gpu() const {
-    return params.main_gpu;
+    print("used to return params.main_gpu");
 };
 
 void GDEmbedding::set_main_gpu(const int32_t p_main_gpu) {
-    params.main_gpu = p_main_gpu;
+    print("used to params.main_gpu = p_main_gpu");
 };
 
 int32_t GDEmbedding::get_split_mode() {
-    return params.split_mode;
+    print("used to return params.split_mode");
 };
 
 void GDEmbedding::set_split_mode(const int32_t p_split_mode) {
-    params.split_mode = static_cast<llama_split_mode>(p_split_mode);
+    print("used to params.split_mode = static_cast<llama_split_mode>(p_split_mode)");
 };
 
 
