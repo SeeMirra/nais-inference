@@ -53,6 +53,14 @@ GDEmbedding::GDEmbedding() : params {llama_context_params ()},
 {
     glog_verbose("GDEmbedding constructor");
 
+    struct llama_context_params {
+        int n_threads;
+        int n_gpu_layers;
+        // you can add any other old fields you reference:
+        // int main_gpu;
+        // int split_mode;
+    };
+
     glog_verbose("Instantiate GDEmbedding mutex");
     func_mutex.instantiate();
     compute_embedding_mutex.instantiate();
@@ -103,7 +111,7 @@ String GDEmbedding::get_model_path() const {
 }
 
 void GDEmbedding::set_model_path(const String p_model_path) {
-    model_path = string_gd_to_std(p_model_path.trim_prefix(String("res://")));
+   model_path = string_gd_to_std(p_model_path.trim_prefix(String("res://")));
 }
 
 int32_t GDEmbedding::get_n_threads() const {
@@ -115,27 +123,27 @@ void GDEmbedding::set_n_threads(const int32_t p_n_threads) {
 }
 
 int32_t GDEmbedding::get_n_gpu_layer() const {
-    print("used to return params.n_gpu_layers");
+    return llama_context_params.n_gpu_layers;
 }
 
 void GDEmbedding::set_n_gpu_layer(const int32_t p_n_gpu_layers) {
-    print("used to params.n_gpu_layers = p_n_gpu_layers");
+    llama_context_params.n_gpu_layers = p_n_gpu_layers;
 }
 
 int32_t GDEmbedding::get_main_gpu() const {
-    print("used to return params.main_gpu");
+    return llama_context_params.main_gpu;
 };
 
 void GDEmbedding::set_main_gpu(const int32_t p_main_gpu) {
-    print("used to params.main_gpu = p_main_gpu");
+    llama_context_params.main_gpu = p_main_gpu;
 };
 
 int32_t GDEmbedding::get_split_mode() {
-    print("used to return params.split_mode");
+    return llama_context_params.split_mode;
 };
 
 void GDEmbedding::set_split_mode(const int32_t p_split_mode) {
-    print("used to params.split_mode = static_cast<llama_split_mode>(p_split_mode)");
+    llama_context_params.split_mode = static_cast<llama_split_mode>(p_split_mode);
 };
 
 
