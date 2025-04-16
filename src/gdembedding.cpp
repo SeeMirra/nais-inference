@@ -6,7 +6,10 @@
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <vector>
-
+#include <thread>    // for std::this_thread::sleep_for   
+#include <chrono>    // for std::chrono::milliseconds   
+#include <iostream>  // for std::cout   
+#include <string>    // if you use std::string elsewhere   
 
 namespace godot {
 
@@ -56,7 +59,6 @@ GDEmbedding::GDEmbedding() : params {llama_context_params ()},
     struct llama_context_params {
         int n_threads;
         int n_gpu_layers;
-        // you can add any other old fields you reference:
         int main_gpu;
         int split_mode;
     };
@@ -106,25 +108,26 @@ void GDEmbedding::_exit_tree() {
     glog_verbose("GDEmbedding exit tree -- done");
 }
 
-String GDEmbedding::get_model_path() const {
+String  GDEmbedding::get_model_path() const {
     return string_std_to_gd(model_path);
 }
-
-void GDEmbedding::set_model_path(const String p_model_path) {
-   model_path = string_gd_to_std(p_model_path.trim_prefix(String("res://")));
+void    GDEmbedding::set_model_path(const String p) {
+    model_path = string_gd_to_std(p.trim_prefix("res://"));
 }
+#if 0  
 
 int32_t GDEmbedding::get_n_threads() const {
     return params.n_threads;
 }
 
-void GDEmbedding::set_n_threads(const int32_t p_n_threads) {
-    params.n_threads = p_n_threads;
+void GDEmbedding::set_n_threads(int32_t p) {
+    std::cout << "[stub] set_n_threads("<<p<<")\n";
+    params.n_threads = p;
 }
 
 int32_t GDEmbedding::get_n_gpu_layer() const {
-    return llama_context_params.n_gpu_layers;
-}
+    std::cout << "[stub] get_n_gpu_layer()\n";
+    return 0;
 
 void GDEmbedding::set_n_gpu_layer(const int32_t p_n_gpu_layers) {
     llama_context_params.n_gpu_layers = p_n_gpu_layers;
@@ -145,6 +148,8 @@ int32_t GDEmbedding::get_split_mode() {
 void GDEmbedding::set_split_mode(const int32_t p_split_mode) {
     llama_context_params.split_mode = static_cast<llama_split_mode>(p_split_mode);
 };
+
+#endif
 
 
 int32_t GDEmbedding::get_n_batch() const {
