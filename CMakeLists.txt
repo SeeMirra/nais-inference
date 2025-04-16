@@ -61,6 +61,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 add_subdirectory(godot-cpp)
+set(LLAMA_CURL OFF CACHE BOOL "Use libcurl to download model from an URL" FORCE)
 set(LLAMA_BUILD_COMMON ON CACHE BOOL "Build common utils library" FORCE)
 add_subdirectory(llama.cpp EXCLUDE_FROM_ALL)
 
