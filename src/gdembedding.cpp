@@ -57,8 +57,8 @@ GDEmbedding::GDEmbedding() : params {llama_context_params ()},
         int n_threads;
         int n_gpu_layers;
         // you can add any other old fields you reference:
-        // int main_gpu;
-        // int split_mode;
+        int main_gpu;
+        int split_mode;
     };
 
     glog_verbose("Instantiate GDEmbedding mutex");
