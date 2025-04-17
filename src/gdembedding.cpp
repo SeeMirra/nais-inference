@@ -108,23 +108,20 @@ void GDEmbedding::_exit_tree() {
     glog_verbose("GDEmbedding exit tree -- done");
 }
 
-String  GDEmbedding::get_model_path() const {
-    return string_std_to_gd(model_path);
-}
-void    GDEmbedding::set_model_path(const String p) {
-    model_path = string_gd_to_std(p.trim_prefix("res://"));
-}
-#if 0  
-
 int32_t GDEmbedding::get_n_threads() const {
     return params.n_threads;
 }
-
 void GDEmbedding::set_n_threads(int32_t p) {
-    std::cout << "[stub] set_n_threads("<<p<<")\n";
+    std::cout << "[stub] set_n_threads(" << p << ")\n";
     params.n_threads = p;
 }
 
+String GDEmbedding::get_model_path() const {
+    return string_std_to_gd(model_path);
+}
+void GDEmbedding::set_model_path(const String &p) {
+    model_path = string_gd_to_std(p.trim_prefix("res://"));
+}
 int32_t GDEmbedding::get_n_gpu_layer() const {
     std::cout << "[stub] get_n_gpu_layer()\n";
     return 0;
