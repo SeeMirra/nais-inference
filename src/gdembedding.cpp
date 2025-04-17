@@ -125,6 +125,7 @@ void GDEmbedding::set_model_path(const String p_model_path) {
 int32_t GDEmbedding::get_n_gpu_layer() const {
     std::cout << "[stub] get_n_gpu_layer()\n";
     return 0;
+}
 
 void GDEmbedding::set_n_gpu_layer(const int32_t p_n_gpu_layers) {
     llama_context_params.n_gpu_layers = p_n_gpu_layers;
@@ -332,4 +333,4 @@ int GDEmbedding::get_n_embd() {
     return embedding_runner->get_n_embd(params);
 }
 
-} }//namespace godot
+}//namespace godot
