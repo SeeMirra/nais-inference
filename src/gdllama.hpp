@@ -7,7 +7,7 @@
 #include <godot_cpp/classes/thread.hpp>
 #include <godot_cpp/classes/worker_thread_pool.hpp>
 #include <godot_cpp/core/object_id.hpp>
-#include <common/common.h>
+#include "common.h"
 #include <llama.h>
 #include <cstdint>
 #include <memory>
