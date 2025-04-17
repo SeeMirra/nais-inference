@@ -124,15 +124,15 @@ void GDEmbedding::set_model_path(const String p_model_path) {
 }
 int32_t GDEmbedding::get_n_gpu_layer() const {
     std::cout << "[stub] get_n_gpu_layer()\n";
-    return 0;
+    return params.n_gpu_layers;
 }
 
 void GDEmbedding::set_n_gpu_layer(const int32_t p_n_gpu_layers) {
-    llama_context_params.n_gpu_layers = p_n_gpu_layers;
+    params.n_gpu_layers = p_n_gpu_layers;
 }
 
 int32_t GDEmbedding::get_main_gpu() const {
-    return llama_context_params.main_gpu;
+    return params.main_gpu;
 };
 
 void GDEmbedding::set_main_gpu(const int32_t p_main_gpu) {
@@ -140,11 +140,11 @@ void GDEmbedding::set_main_gpu(const int32_t p_main_gpu) {
 };
 
 int32_t GDEmbedding::get_split_mode() {
-    return llama_context_params.split_mode;
+    return params.split_mode;
 };
 
 void GDEmbedding::set_split_mode(const int32_t p_split_mode) {
-    llama_context_params.split_mode = static_cast<llama_split_mode>(p_split_mode);
+    params.split_mode = static_cast<llama_split_mode>(p_split_mode);
 };
 
 
