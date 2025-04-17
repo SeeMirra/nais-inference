@@ -119,8 +119,8 @@ void GDEmbedding::set_n_threads(int32_t p) {
 String GDEmbedding::get_model_path() const {
     return string_std_to_gd(model_path);
 }
-void GDEmbedding::set_model_path(const String &p) {
-    model_path = string_gd_to_std(p.trim_prefix("res://"));
+void GDEmbedding::set_model_path(const String p_model_path) {
+    model_path = string_gd_to_std(p_model_path.trim_prefix("res://"));
 }
 int32_t GDEmbedding::get_n_gpu_layer() const {
     std::cout << "[stub] get_n_gpu_layer()\n";
@@ -332,4 +332,4 @@ int GDEmbedding::get_n_embd() {
     return embedding_runner->get_n_embd(params);
 }
 
-} //namespace godot
+} }//namespace godot
