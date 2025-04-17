@@ -11,6 +11,13 @@
 #include <iostream>  // for std::cout   
 #include <string>    // if you use std::string elsewhere   
 
+struct llama_context_params {
+    int n_threads;
+    int n_gpu_layers;
+    int main_gpu;
+    int split_mode;
+};
+
 namespace godot {
 
 void GDEmbedding::_bind_methods() {
@@ -55,13 +62,6 @@ GDEmbedding::GDEmbedding() : params {llama_context_params ()},
     glog_verbose {[](std::string s) {godot::UtilityFunctions::print_verbose(s.c_str());}}
 {
     glog_verbose("GDEmbedding constructor");
-
-    struct llama_context_params {
-        int n_threads;
-        int n_gpu_layers;
-        int main_gpu;
-        int split_mode;
-    };
 
     glog_verbose("Instantiate GDEmbedding mutex");
     func_mutex.instantiate();
