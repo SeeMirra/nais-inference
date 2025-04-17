@@ -6,6 +6,12 @@
 #include <godot_cpp/variant/packed_float32_array.hpp>
 #include <godot_cpp/variant/string.hpp>
 
+struct llama_context_params {
+    int n_threads;
+    int n_gpu_layers;
+    int main_gpu;
+    int split_mode;
+};
 
 namespace godot {
 

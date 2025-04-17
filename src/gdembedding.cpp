@@ -11,13 +11,6 @@
 #include <iostream>  // for std::cout   
 #include <string>    // if you use std::string elsewhere   
 
-struct llama_context_params {
-    int n_threads;
-    int n_gpu_layers;
-    int main_gpu;
-    int split_mode;
-};
-
 namespace godot {
 
 void GDEmbedding::_bind_methods() {
@@ -54,7 +47,7 @@ void GDEmbedding::_bind_methods() {
 
     ADD_SIGNAL(MethodInfo("compute_embedding_finished", PropertyInfo(Variant::PACKED_FLOAT32_ARRAY, "embedding")));
     ADD_SIGNAL(MethodInfo("similarity_cos_string_finished", PropertyInfo(Variant::FLOAT, "similarity")));
-    
+
 }
 
 GDEmbedding::GDEmbedding() : params {llama_context_params ()},
