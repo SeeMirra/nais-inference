@@ -10,9 +10,9 @@
 #include <godot_cpp/variant/quaternion.hpp>
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
-#include <common/common.h>
-#include <common/json.hpp>
-#include <common/json-schema-to-grammar.h>
+#include "common.h"
+#include "json.hpp"
+#include "json-schema-to-grammar.h"
 #include <cstdint>
 #include <memory>
 #include <string>
