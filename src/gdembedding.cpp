@@ -56,8 +56,6 @@ GDEmbedding::GDEmbedding() : params {llama_context_params ()},
 {
     glog_verbose("GDEmbedding constructor");
 
-    std::string model_path; 
-
     struct llama_context_params {
         int n_threads;
         int n_gpu_layers;

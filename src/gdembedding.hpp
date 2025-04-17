@@ -24,6 +24,9 @@ class GDEmbedding : public Node {
         float similarity_cos_string_internal(String s1, String s2);
         std::function<void(std::string)> glog;
         std::function<void(std::string)> glog_verbose;
+        std::string            model_path;     
+        llama_context_params   params;         
+
 
     protected:
 	    static void _bind_methods();
