@@ -146,7 +146,6 @@ void GDEmbedding::set_split_mode(const int32_t p_split_mode) {
     llama_context_params.split_mode = static_cast<llama_split_mode>(p_split_mode);
 };
 
-#endif
 
 
 int32_t GDEmbedding::get_n_batch() const {
