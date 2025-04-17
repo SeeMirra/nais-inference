@@ -54,6 +54,7 @@ void GDEmbedding::_bind_methods() {
 
     ADD_SIGNAL(MethodInfo("compute_embedding_finished", PropertyInfo(Variant::PACKED_FLOAT32_ARRAY, "embedding")));
     ADD_SIGNAL(MethodInfo("similarity_cos_string_finished", PropertyInfo(Variant::FLOAT, "similarity")));
+    
 }
 
 GDEmbedding::GDEmbedding() : params {llama_context_params ()},
